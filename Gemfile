@@ -8,6 +8,7 @@ end
 gem 'rails', '~> 5.1.6', '>= 5.1.6.2'
 gem 'puma', '~> 3.7'
 gem 'rack-cors'
+gem 'feedjira', '2.2.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

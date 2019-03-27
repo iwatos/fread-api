@@ -1,4 +1,5 @@
 class ListsController < ApplicationController
+  require "feed.rb"
   before_action :set_list, only: [:show, :update, :destroy]
 
   # GET /lists
@@ -37,6 +38,11 @@ class ListsController < ApplicationController
   def destroy
     @list.destroy
   end
+
+   #feed取得
+   def get_feed
+    render json: Feed.new().get_feed
+   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
