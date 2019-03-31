@@ -1,8 +1,8 @@
 class Feed
     require "feedjira"
     
-    def get_feed
-        feed = Feedjira::Feed.fetch_and_parse("http://staff.hatenablog.com/feed")
+    def get_feed(url)
+        feed = Feedjira::Feed.fetch_and_parse(url)
         return feed
     end
 

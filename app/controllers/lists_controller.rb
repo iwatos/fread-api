@@ -40,9 +40,11 @@ class ListsController < ApplicationController
   end
 
    #feed取得
-   def get_feed
-    render json: Feed.new().get_feed
-   end
+  def get_feed
+    if params[:url]
+      render json: Feed.new().get_feed(params[:url])
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
