@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :users
 
   get "/get_feed" => "lists#get_feed"
+  post "/login" => "users#login"
 end

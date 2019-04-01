@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include ActionController::Cookies
     before_action :set_list, only: [:show, :update, :destroy]
       
   # GET /users
@@ -36,6 +37,12 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
+  end
+
+  #ログイン
+  def login
+    #@user = User.find_by(email: params[:email], password: params[:password])
+    render plain: "#{params[:email]},#{params[:password]}回目の訪問です!\n"
   end
 
   private
