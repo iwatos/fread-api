@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190331033823) do
+ActiveRecord::Schema.define(version: 20190407021425) do
 
   create_table "lists", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20190331033823) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remember_digest"
   end
 
 end

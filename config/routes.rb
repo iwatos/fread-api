@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 
   get "/get_feed" => "lists#get_feed"
   post "/login" => "users#login"
+  post "/loginUser" => "users#loginUser"
 end

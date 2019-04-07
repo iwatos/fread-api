@@ -41,8 +41,36 @@ class UsersController < ApplicationController
 
   #ログイン
   def login
-    #@user = User.find_by(email: params[:email], password: params[:password])
-    render plain: "#{params[:email]},#{params[:password]}回目の訪問です!\n"
+    array =["LoginFailed",-1]
+    @user = User.find_by(email: params[:email])
+    if @user && @user.authenticate(params[:password])
+      token = SecureRandom.urlsafe_base64
+      @user.remember_digest = token
+      @user.save
+      array =["LoginSuccess",@user.id,token]
+    end
+    render json: array
+  end
+
+  def loginUser
+    array =["LoginFailed",-1]
+    user = User.find_by(email: params[:email])
+    if user && user.authenticate(params[:password])
+      tabs = Tab.where(user_id: user.id) #tab一覧
+      list = Array.new(0)
+      tabs.each do | tab |
+        list.push(url.url)
+      end
+
+      tabs.each do | tab |
+        urls = List.where(tab_id: tab.id)
+        urls.each do | url |
+          list.push(url.url)
+        end
+      end
+      array = list
+    end
+    render json: array
   end
 
   private
@@ -53,6 +81,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white user" through.
     def user_params
-      params.require(:user).permit(:name, :email, :password_digest)
+      params.require(:user).permit(:name, :email, :password)
     end
 end
