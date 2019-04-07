@@ -52,25 +52,29 @@ class UsersController < ApplicationController
     render json: array
   end
 
-  def loginUser
-    array =["LoginFailed",-1]
-    user = User.find_by(email: params[:email])
-    if user && user.authenticate(params[:password])
-      tabs = Tab.where(user_id: user.id) #tab一覧
-      list = Array.new(0)
+  #
+  def get_feed
+    response ="Failed"
+    user = User.find_by(id: "3")
+    if user
+      tabs = Tab.where(user_id: user.id)
+      response = Array.new(0)
+      tab_array = Array.new(0)
+      urls_array = Array.new(0)
       tabs.each do | tab |
-        list.push(url.url)
-      end
-
-      tabs.each do | tab |
+        tab_array.push(tab.name)
+        url_array = Array.new(0)
+        
         urls = List.where(tab_id: tab.id)
         urls.each do | url |
-          list.push(url.url)
+          url_array.push(url.url)
         end
+        urls_array.push(url_array)
       end
-      array = list
+      response.push(tab_array)
+      response.push(urls_array)
     end
-    render json: array
+    render json: response
   end
 
   private

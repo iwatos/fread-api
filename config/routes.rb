@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :lists
   resources :users
 
+  post "user/get_feed" => "users#get_feed"
   get "/get_feed" => "lists#get_feed"
   post "/login" => "users#login"
   post "/loginUser" => "users#loginUser"
