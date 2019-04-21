@@ -41,40 +41,40 @@ class UsersController < ApplicationController
 
   #ログイン
   def login
-    array =["LoginFailed",-1]
+    array =[false]
     @user = User.find_by(email: params[:email])
     if @user && @user.authenticate(params[:password])
       token = SecureRandom.urlsafe_base64
       @user.remember_digest = token
       @user.save
-      array =["LoginSuccess",@user.id,token]
+      array =[true,@user.name,token]
     end
     render json: array
   end
 
-  #
   def get_feed
-    response ="Failed"
-    user = User.find_by(id: "3")
+    response = Array.new(0)
+    user = User.find_by(name: params[:name])
     if user
       tabs = Tab.where(user_id: user.id)
-      response = Array.new(0)
-      tab_array = Array.new(0)
-      urls_array = Array.new(0)
-      tabs.each do | tab |
-        tab_array.push(tab.name)
-        url_array = Array.new(0)
-        
-        urls = List.where(tab_id: tab.id)
-        urls.each do | url |
-          url_array.push(url.url)
-        end
-        urls_array.push(url_array)
+      response.push(tabs.pluck("name"))
+      urls = Array.new(0)
+      tabs.pluck("id").each do | tab |
+        urls.push(List.where(tab_id: tab).pluck("url"))
       end
-      response.push(tab_array)
-      response.push(urls_array)
+      response.push(urls)
     end
+
     render json: response
+  end
+
+  #認証
+  def certification
+    result = false
+    if User.find_by(name: params[:name]).remember_digest == params[:token]
+      result = true
+    end
+    return result
   end
 
   private
