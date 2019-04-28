@@ -52,6 +52,14 @@ class UsersController < ApplicationController
     render json: array
   end
 
+  #新規登録
+  def signup
+    token = SecureRandom.urlsafe_base64
+    @user = User.new(name: params[:name],email: params[:email], password: params[:password],remember_digest: token)
+    @user.save
+    render json: [true,@user.name,token]
+  end
+
   def get_feed
     response = Array.new(0)
     user = User.find_by(name: params[:name])
