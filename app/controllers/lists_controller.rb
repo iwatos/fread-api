@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  require "feed.rb"
+  require "feedjira"
   before_action :set_list, only: [:show, :update, :destroy]
 
   # GET /lists
@@ -42,7 +42,7 @@ class ListsController < ApplicationController
    #feed取得
   def get_feed
     if params[:url]
-      render json: Feed.new().get_feed(params[:url])
+      render json: Feedjira::Feed.fetch_and_parse(params[:url])
     end
   end
 
