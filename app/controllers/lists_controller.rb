@@ -42,8 +42,21 @@ class ListsController < ApplicationController
    #feed取得
   def get_feed
     if params[:url]
-      render json: Feedjira::Feed.fetch_and_parse(params[:url])
+      rss = Feedjira::Feed.fetch_and_parse(params[:url])
+      entries = []
+      rss.entries.each do |item|
+        entries += [
+          :title => item.title,
+          :url => item.url
+        ]
+      end
     end
+    feed = {
+      :title => rss.title,
+      :url => rss.url,
+      :entries => entries
+    }
+    render json: feed
   end
 
   private
