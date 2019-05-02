@@ -1,0 +1,15 @@
+AllCops:
+  TargetRubyVersion: 2.1
+
+Style/Documentation:
+  Enabled: true
+  Exclude:
+    - 'spec/**/*'
+
+Style/DocumentationMethod: 
+  Enabled: true
+  Exclude:
+    - 'spec/**/*'
+
+Style/ClassAndModuleChildren:
+  Enabled: false

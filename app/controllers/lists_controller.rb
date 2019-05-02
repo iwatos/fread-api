@@ -41,20 +41,12 @@ class ListsController < ApplicationController
 
    #feed取得
   def get_feed
-    if params[:url]
-      rss = Feedjira::Feed.fetch_and_parse(params[:url])
-      entries = []
-      rss.entries.each do |item|
-        entries += [
-          :title => item.title,
-          :url => item.url
-        ]
-      end
-    end
+    feed_id = params[:feed_id]
+    feed = Feed.find_by(id: feed_id)
     feed = {
-      :title => rss.title,
-      :url => rss.url,
-      :entries => entries
+      :title => feed.title,
+      :url => feed.url,
+      :entries => Entry.where(feed_id: feed_id)
     }
     render json: feed
   end

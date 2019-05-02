@@ -30,5 +30,10 @@ module FreadApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.middleware.use ActionDispatch::Cookies
+
+    # 定期タスクの実行
+    config.enable_dependency_loading = true 
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.eager_load_paths += Dir["#{config.root}/lib/**/"]
   end
 end
