@@ -33,7 +33,7 @@ module FreadApi
 
     # 定期タスクの実行
     config.enable_dependency_loading = true 
-    config.autoload_paths += Dir["#{config.root}/lib/**/"]
-    config.eager_load_paths += Dir["#{config.root}/lib/**/"]
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.eager_load_paths += %W(#{config.root}/lib)
   end
 end

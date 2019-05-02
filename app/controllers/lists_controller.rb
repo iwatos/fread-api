@@ -46,7 +46,7 @@ class ListsController < ApplicationController
     feed = {
       :title => feed.title,
       :url => feed.url,
-      :entries => Entry.where(feed_id: feed_id)
+      :entries => Entry.where(feed_id: feed_id).order(id: :desc)
     }
     render json: feed
   end
