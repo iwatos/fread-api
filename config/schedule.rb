@@ -4,6 +4,6 @@ env :PATH, ENV['PATH']
 ENV['RAILS_ENV'] ||= "development"
 set :environment, ENV['RAILS_ENV']
 
-every 1.minutes do
+every 30.minutes do
     rake "get_entry:feeds"
 end
