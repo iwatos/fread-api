@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190501175407) do
+ActiveRecord::Schema.define(version: 20190507120220) do
 
-  create_table "entries", force: :cascade do |t|
-    t.integer "feed_id"
-    t.text "title"
-    t.text "url"
-    t.string "thumbnail"
-    t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+# Could not dump table "entries" because of following StandardError
+#   Unknown type '' for column 'author'
 
   create_table "feeds", force: :cascade do |t|
     t.string "title"
